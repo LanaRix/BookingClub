@@ -1,0 +1,119 @@
+﻿/* ------------- Контейнер с адаптивными блоками------------- */
+.Sections {
+    margin: 1.5em 0;
+    padding: 0;
+    column-gap: 1.5em; 
+    font-size: .85em;
+    -moz-column-gap: 1.5em; 
+    -webkit-column-gap: 1.5em; 
+}
+
+/* Элементы в виде плиток с содержанием */
+
+.item {
+   display: inline-block;
+
+    padding: 1em;
+    margin: 0 0 1.5em;
+    width: 50%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-shadow: 2px 2px 4px 0 #ccc; 
+}
+.leftimg {
+    float: left; 
+    margin: 7px 7px 7px 0;
+}
+
+.rightimg {
+    float: right; 
+    margin: 7px 0 7px 7px;
+}
+/* Стили картинок, видое и фреймов внутри адаптивных плиток */
+
+img, iframe {
+    max-width: 50%;
+    height: auto;
+    display: block;
+}
+
+/* Стили ссылок внутри плиток */
+.item a {
+    text-decoration: none;
+    color:blue;
+    margin: 0 10px;
+}
+
+    /* Стили ссылок при наведении */
+   .item a:hover {
+        color: #E88F00;
+        border-bottom: 1px dotted #9F1D35;
+    }
+
+/* Медиа-запросы для различных размеров адаптивного макета */
+/*.Sections {
+    background-position:right;
+    margin: 1.5em 0;
+    padding: 0;
+    column-gap: 1.5em;
+    font-size: .85em;
+    -moz-column-gap: 1.5em;
+    -webkit-column-gap: 1.5em;
+}
+
+.item {
+    background-position: right;
+    display: block;
+    padding: 1em;
+    margin: 0 0 1.5em;
+    width: 50%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-shadow: 2px 2px 4px 0 #ccc;
+}
+img, iframe {
+    max-width: 50%;
+    height: auto;
+    display: block;
+}
+
+
+@media only screen and (min-width: 400px) {
+    .masonry {
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .masonry {
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .masonry {
+        -moz-column-count: 4;
+        -webkit-column-count: 4;
+        column-count: 4;
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+    .masonry {
+        -moz-column-count: 5;
+        -webkit-column-count: 5;
+        column-count: 5;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    .wrapper {
+        width: 1260px;
+    }
+}*/

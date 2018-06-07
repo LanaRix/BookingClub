@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Книжный клуб</title>
+    <link href="Book.css" rel="stylesheet" />
+    <link href="plitka.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+</head>
+<body onload="LoadBooks();">
+
+    <!--<a href="LongIn.html" id="register">Войти</a>-->
+    <a href="register.html" id="register">Зарегистрироваться</a>
+    <!--<button onclick="dispLongIn(longIn);" type="submit" class='btn btn-dark' style="position:absolute; right: 180px;">Войти</button>-->
+    <!--<a><input onclick="dispRegi(regi);" type="submit" class='btn btn-dark' style="position:absolute; right: 5px;">зарегистрироваться</a>-->
+    <!--<a href="LongIn.html"><input type="submit" class="btn btn - dark" value="Войти" /></a>-->
+    <!--<a href="register.html"><input type="submit" class="btn btn - dark" value="Зарегистрироваться" /></a>-->
+
+    <h3 style="position:absolute; left: 15px;">Вход для зарегистрированных пользователей</h3>
+    <br /><br /><br />
+    <div class="msgClass">
+        <div style="color:Red;" id="msgAuth"></div>
+        <div style="color:Red;" id="msg"></div>
+        <ul style="color:Red;" id="formError"></ul>
+    </div>
+    <div class="col-lg-6">
+        <label for="">Email: </label><br />
+        <input class="form-control" type="text" id="Email" name="Email">
+    </div>
+    <div class="col-lg-6">
+        <label for="">Пароль: </label><br />
+        <input class="form-control" type="password" id="Password" name="Password">
+    </div>
+    <button style="position:absolute; left: 15px;" type="submit" class='btn btn-dark' id="loginBtn">Вход</button>
+
+    <div class="two"><h1>BookClub-Книжный клуб</h1></div>
+
+
+
+
+    <!--Добавить книгу-->
+    <div>
+        <lh class="three">Добавить книгу:</lh>
+        <div id="sectionsDiv" class="col-lg-6">
+            <form>
+                <div id="create">
+                    <input id="createDiv" type="hidden" name="id" value="0" />
+                    <label for="createDiv">Название книги:</label>
+                    <input id="createName" class="form-control" type="text" placeholder="название" required />
+                    <label for="createDiv">Автор книги:</label>
+                    <input id="createAuthor" class="form-control" type="text" placeholder="автор" required />
+                    <label for="createDiv">Краткое описание книги:</label>
+                    <input id="createInfo" class="form-control" type="text" placeholder="аннотация" required />
+                    <label for="createDiv">Картинка книги:</label>
+                    <input id="createImage" class="form-control" type="text" placeholder="ссылка на изображение" required />
+                    <label for="createDiv">Год написания:</label>
+                    <input id="createYear" class="form-control" type="text" placeholder="год написания" required />
+                    <br />
+                    <button onclick="CreateBooks();" type="submit" class='btn btn-dark'>Добавить книгу</button>
+                    <br />
+                </div>
+            </form>
+        </div>
+        <br /><br />
+
+
+
+        <lh class="three">Выберете книгу:</lh>
+
+        <ul id="hr"></ul>
+
+        <div id="Books"></div>
+    </div>
+
+    <!--Изменить инфу о книге-->
+    <form id="form1" style="display: none;">
+        <lh id="edit" class="three">Редактировать информацию о книге:</lh><br />
+        <div class="col-lg-6">
+            <input id="editId" type="hidden" name="id" />
+            <label for="editDiv">Название книги:</label>
+            <input id="editName" class="form-control" type="text" placeholder="название" required />
+            <label for="editDiv">Автор книги:</label>
+            <input id="editAuthor" class="form-control" type="text" placeholder="автор" required />
+            <label for="editDiv">Краткое описание книги:</label>
+            <input id="editInfo" class="form-control" type="text" placeholder="аннотация" required />
+            <label for="editDiv">Картинка книги:</label>
+            <input id="editImage" class="form-control" type="text" placeholder="ссылка на изображение" required />
+            <label for="editDiv">Год написания:</label>
+            <input id="editYear" class="form-control" type="text" placeholder="год написания" required />
+            <br />
+            <button onclick="EditBook(editId.value);" type="submit" class='btn btn-dark'>Изменить информацию</button>
+            <br />
+        </div>
+        <p3 style="color:Red"><strong>Внимание!</strong> После нажатия кнопки "Изменить информацию" данные изменения будут применены к выбранной книге <strong>без возможности восстановления!</strong><br />Убедительная просьба <strong>проверять содержание</strong> до нажатия кнопки "Изменить информацию"!</p3>
+        <br /><p>   </p><br />
+    </form>
+    <script src="Book.js"></script>
+
+    <script>
+        function GetCurrentUser() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("POST", "/api/Account/isAuthenticated", true);
+            xmlhttp.onreadystatechange = function () {
+                var myObj = "";
+                myObj = xmlhttp.responseText != "" ? JSON.parse(xmlhttp.responseText) :
+                    {};
+                document.getElementById("msgAuth").innerHTML = myObj.message;
+            }
+            xmlhttp.send();
+        }
+
+        //вход
+        function ParseResponseMsg() {
+            // Считывание данных с формы
+            email = document.getElementById("Email").value;
+            password = document.getElementById("Password").value;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("POST", "/api/Account/Login");
+            xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xmlhttp.onreadystatechange = function () {
+                // Очистка контейнера вывода сообщений
+                document.getElementById("msg").innerHTML = ""
+                var mydiv = document.getElementById('formError');
+                while (mydiv.firstChild) {
+                    mydiv.removeChild(mydiv.firstChild);
+                }
+                // Обработка ответа от сервера
+                myObj = JSON.parse(this.responseText);
+                document.getElementById("msg").innerHTML = myObj.message;
+                // Вывод сообщений об ошибках
+                if (typeof myObj.error !== "undefined" && myObj.error.length > 0) {
+                    for (var i = 0; i < myObj.error.length; i++) {
+                        var ul = document.getElementsByTagName("ul");
+                        var li = document.createElement("li");
+                        li.appendChild(document.createTextNode(myObj.error[i]));
+                        ul[0].appendChild(li);
+                    }
+                }
+                document.getElementById("Password").value = "";
+            };
+            // Запрос на сервер
+            xmlhttp.send(JSON.stringify({
+                email: email,
+                password: password
+            }));
+            //alert("test");
+        };
+        // Обработка клика по кнопке
+        document.getElementById("loginBtn").addEventListener("click", ParseResponseMsg);
+                                //alert("test");
+    </script>
+
+</body>
+</html >

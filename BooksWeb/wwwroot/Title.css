@@ -1,0 +1,95 @@
+﻿body {
+    /*background: url(https://orig00.deviantart.net/76a3/f/2008/055/3/b/paper_texture_by_spiteful_pie_stock.jpg); /* Цвет фона и путь к файлу */
+    background: url(http://bestfon.ucoz.ru/_ph/29/518921970.jpg); /* Цвет фона и путь к файлу */
+    background-size: 100%; /* Современные браузеры */
+}
+
+.left {
+    float: left;
+    width: 49%
+}
+.right{
+    float:right;
+    width:49%;
+}
+
+.two {
+    /*background: #E4E5D2;*/
+    padding: 70px 40px;
+    text-align: center;
+}
+
+    .two h1 {
+        font-family: 'Open Sans', sans-serif;
+        position: relative;
+        color: blueviolet;
+        font-size: 3em;
+        font-weight: normal;
+        line-height: 1;
+        padding: 10px 0;
+        margin: 0;
+        display: inline-block;
+    }
+
+        .two h1:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 80%;
+            height: 200%;
+            border-radius: 50%/30%;
+            border: 6px solid red;
+            border-left-color: transparent;
+            border-right-color: transparent;
+        }
+
+@media (max-width: 420px) {
+    .two h1 {
+        font-size: 2em;
+    }
+}
+
+.three {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.three {
+    font-family: 'Merriweather', serif;
+    position: relative;
+    color: rebeccapurple;
+    font-size: 50px;
+    font-weight: normal;
+    padding: 8px 20px 7px 20px;
+    border-top: 4px solid;
+    border-left: 4px solid;
+    display: inline-block;
+    margin: 0;
+    line-height: 1;
+}
+
+    .three :before {
+        content: "";
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        top: -28px;
+        left: -28px;
+        border: 4px solid rebeccapurple;
+        box-sizing: border-box;
+    }
+
+@media (max-width: 450px) {
+    .three {
+        font-size: 36px;
+    }
+
+        .three:before {
+            width: 20px;
+            height: 20px;
+            top: -20px;
+            left: -20px;
+        }
+}
